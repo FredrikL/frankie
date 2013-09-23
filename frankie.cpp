@@ -26,5 +26,9 @@ int main() {
 		std::cout << x.name << std::endl;
 	}
 
+	frankie::Registry r(frankie::regs());
+
+	auto foo = r.create("Foo");
+
 	return 0;
 }

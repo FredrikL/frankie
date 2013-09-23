@@ -8,27 +8,11 @@
 namespace frankie{
 	typedef std::function<std::shared_ptr<frankie::Module>(void)> Creator;
 
-	class Registry {
-		typedef std::map<std::string, Creator> Creators;
-		Creators _creators;
-
-
-	public:
-		void reg(const std::string &className, const Creator &creator) {
-			_creators[className] = creator;
-		}
-		std::shared_ptr<frankie::Module> create(const std::string &className){
-			return _creators[className]();
-		}
-	};
-
-
 	struct knowns {
 		std::string name;
 		Creator func;
 	};
 	typedef std::vector<knowns> reg;
-
 
 	inline frankie::reg& regs() {
 		static reg regs;
@@ -40,4 +24,29 @@ namespace frankie{
 			regs().push_back(k);
 		}
 	};
+
+	class Registry {
+
+	private:
+		typedef std::map<std::string, Creator> Creators;
+		Creators _creators;
+
+		void reg(const std::string &className, const Creator &creator) {
+			_creators[className] = creator;
+		}
+
+	public:
+		Registry(frankie::reg r) {
+			for(auto &x : r) {
+				reg(x.name, x.func);
+			}
+		}
+
+		std::shared_ptr<frankie::Module> create(const std::string &className){
+			return _creators[className]();
+		}
+	};
+
+
+
 }
