@@ -11,7 +11,6 @@ module(Foo, {
 	});
 });
 
-
 module(Bar, {
 	Get("/bar", [](frankie::Context ctx) {
 		std::cout << "Hai" << std::endl;
@@ -22,6 +21,10 @@ module(Bar, {
 
 int main() {
 	std::cout << frankie::regs().size() << std::endl;
+
+	for(auto &x : frankie::regs()){
+		std::cout << x.name << std::endl;
+	}
 
 	return 0;
 }

@@ -6,9 +6,9 @@
 #include <memory>
 
 namespace frankie{
-	
+	typedef std::function<std::shared_ptr<frankie::Module>(void)> Creator;
+
 	class Registry {
-		typedef std::function<std::shared_ptr<frankie::Module>(void)> Creator;
 		typedef std::map<std::string, Creator> Creators;
 		Creators _creators;
 
@@ -23,8 +23,11 @@ namespace frankie{
 	};
 
 
-	typedef std::function<void(frankie::Registry)> func;
-	typedef std::vector<func> reg;
+	struct knowns {
+		std::string name;
+		Creator func;
+	};
+	typedef std::vector<knowns> reg;
 
 
 	inline frankie::reg& regs() {
@@ -32,10 +35,9 @@ namespace frankie{
 		return regs;
 	};
 
-
 	struct known {
-		known(func f){
-			regs().push_back(f);
+		known(knowns k){
+			regs().push_back(k);
 		}
 	};
 }
