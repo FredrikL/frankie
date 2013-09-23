@@ -9,6 +9,7 @@ namespace frankie {
 	class Context {};
 	class Response {};
 
+	typedef std::function<frankie::Response(frankie::Context)> ffunc;
 	
 
 	class Module{
@@ -26,12 +27,12 @@ namespace frankie {
 			}
 
 		protected:
-			void Get(std::string path, std::function<frankie::Response(frankie::Context)> f) {
+			void Get(std::string path, ffunc f) {
 				get[path] = f;
 			}
 
 
 		private:
-			std::map<std::string, std::function<frankie::Response(frankie::Context)>> get;
+			std::map<std::string, ffunc> get;
 	};
 };
