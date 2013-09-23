@@ -13,7 +13,17 @@ namespace frankie {
 
 	class Module{
 		public:
-			bool canHandle(std::string protocol, std::string path) { return false;};
+			bool canHandle(std::string protocol, std::string path) { 
+				for(auto &k : get) {
+					if(k.first == path)
+						return true;
+				}
+				return false;
+			};
+
+			frankie::Response handle(std::string protocol, std::string path) {
+				return get[path](frankie::Context());
+			}
 
 		protected:
 			void Get(std::string path, std::function<frankie::Response(frankie::Context)> f) {
@@ -24,10 +34,4 @@ namespace frankie {
 		private:
 			std::map<std::string, std::function<frankie::Response(frankie::Context)>> get;
 	};
-
-
-	
-
-
-
 };

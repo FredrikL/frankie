@@ -46,7 +46,4 @@ namespace frankie{
 			return _creators[className]();
 		}
 	};
-
-
-
 }

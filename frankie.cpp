@@ -30,5 +30,11 @@ int main() {
 
 	auto foo = r.create("Foo");
 
+	if(foo->canHandle("GET","/foo")) {
+		std::cout << "can handle!" << std::endl;
+		foo->handle("GET", "/foo");
+
+	}
+
 	return 0;
 }
