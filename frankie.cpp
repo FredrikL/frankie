@@ -1,7 +1,7 @@
 #include <iostream>
 #include <functional>
 #include "frankie.hpp"
-
+#include <boost/asio.hpp>
 
 module(Foo, {
 	Get("/foo", [](frankie::Context ctx) {
@@ -33,8 +33,11 @@ int main() {
 	if(foo->canHandle("GET","/foo")) {
 		std::cout << "can handle!" << std::endl;
 		foo->handle("GET", "/foo");
-
 	}
+
+	boost::asio::io_service service;
+	frankie::Server server(service, 9090);
+	service.run();
 
 	return 0;
 }

@@ -2,6 +2,7 @@
 
 #include "module.hpp"
 #include "registry.hpp"
+#include "server.hpp"
  
 #define FAKE_NAME(name) name ## _reg
 

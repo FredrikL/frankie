@@ -31,7 +31,6 @@ namespace frankie {
 				get[path] = f;
 			}
 
-
 		private:
 			std::map<std::string, ffunc> get;
 	};
