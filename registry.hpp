@@ -45,5 +45,9 @@ namespace frankie{
 		std::shared_ptr<frankie::Module> create(const std::string &className){
 			return _creators[className]();
 		}
+
+		std::shared_ptr<frankie::Module> createModuleForUrl(std::string url) {
+			return nullptr;
+		}
 	};
 }

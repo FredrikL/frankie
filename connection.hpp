@@ -35,10 +35,7 @@ namespace frankie {
 		}
 
 		void handle_read(const boost::system::error_code& error, std::size_t bytes) {
-			std::cout << "handle_read" << std::endl;
-			std::cout << error << std::endl;
 			if(!error) {
-				std::cout << "no error" << std::endl;
 
 				auto bufs = buffer.data();
 				std::string input(boost::asio::buffers_begin(bufs), boost::asio::buffers_begin(bufs) + bytes);
@@ -57,7 +54,7 @@ namespace frankie {
 		}
 
 		void handle_write(const boost::system::error_code&, size_t) {
-			std::cout << "handle_write" << std::endl;
+			//std::cout << "handle_write" << std::endl;
 		}
 
 		boost::asio::streambuf buffer;

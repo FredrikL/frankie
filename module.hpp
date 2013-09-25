@@ -6,7 +6,19 @@
 
 namespace frankie {
 
-	class Context {};
+	class Context {
+	public:
+		Context(const std::string request) {
+
+		}
+		std::string protocol() {
+			return "";
+		}
+		std::string path() {
+			return "";
+		}
+	};
+	
 	class Response {};
 
 	typedef std::function<frankie::Response(frankie::Context)> ffunc;
@@ -23,7 +35,7 @@ namespace frankie {
 			};
 
 			frankie::Response handle(std::string protocol, std::string path) {
-				return get[path](frankie::Context());
+				return get[path](frankie::Context(""));
 			}
 
 		protected:
