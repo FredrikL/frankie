@@ -3,13 +3,13 @@
 
 module(Foo, {
 	Get("/", [](frankie::Context ctx) {
-		return frankie::Response("Ho");
+		return "Ho";
 	});
 });
 
 module(Bar, {
 	Get("/bar", [](frankie::Context ctx) {
-		return frankie::Response("Hai");
+		return "Hai";
 	});
 });
 
