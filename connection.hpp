@@ -4,6 +4,7 @@
 #include <boost/bind.hpp>
 #include <memory>
 #include <string>
+#include "registry.hpp"
 
 namespace frankie {
 
@@ -30,9 +31,7 @@ namespace frankie {
 		}
 
 	private:
-		Connection(boost::asio::io_service& service) : _socket(service) {
-
-		}
+		Connection(boost::asio::io_service& service) : _socket(service) { }
 
 		void handle_read(const boost::system::error_code& error, std::size_t bytes) {
 			if(!error) {
@@ -43,6 +42,8 @@ namespace frankie {
 
 				// magic?!
 				std::cout << input << std::endl;
+				auto module = registry.createModuleForUrl("GET", "/");
+				auto result = module->handle("GET", "/");
 
 				msg = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Lenght: 100\r\n\r\nHai\r\n\r\n";
 
@@ -60,6 +61,7 @@ namespace frankie {
 		boost::asio::streambuf buffer;
 		tcp::socket _socket;
 		std::string msg;
+		frankie::Registry registry;
 	};
 
 }

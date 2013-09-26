@@ -36,17 +36,18 @@ namespace frankie{
 		}
 
 	public:
-		Registry(frankie::reg r) {
-			for(auto &x : r) {
+		Registry() {
+			for(auto &x : regs()) {
 				reg(x.name, x.func);
 			}
 		}
 
-		std::shared_ptr<frankie::Module> create(const std::string &className){
-			return _creators[className]();
-		}
-
-		std::shared_ptr<frankie::Module> createModuleForUrl(std::string url) {
+		std::shared_ptr<frankie::Module> createModuleForUrl(std::string protocol, std::string url) {
+			for(auto &x : _creators) {
+				auto module = x.second();
+				if(module->canHandle(protocol, url))
+					return module;
+			}
 			return nullptr;
 		}
 	};

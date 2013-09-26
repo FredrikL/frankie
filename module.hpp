@@ -18,8 +18,10 @@ namespace frankie {
 			return "";
 		}
 	};
-	
-	class Response {};
+
+	class Response {
+		
+	};
 
 	typedef std::function<frankie::Response(frankie::Context)> ffunc;
 	
