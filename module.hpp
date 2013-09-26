@@ -3,21 +3,9 @@
 #include <map>
 #include <functional>
 #include <string>
+#include "context.hpp"
 
 namespace frankie {
-
-	class Context {
-	public:
-		Context(const std::string request) {
-
-		}
-		std::string protocol() {
-			return "";
-		}
-		std::string path() {
-			return "";
-		}
-	};
 
 	class Response {
 	public:
