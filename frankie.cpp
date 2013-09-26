@@ -7,6 +7,15 @@ module(Foo, {
 	});
 });
 
+module(Baz, {
+	Get("/Baz", [](frankie::Context){
+		return "baz";
+	});
+	Get("/Fuu", [](frankie::Context){
+		return "fuu";
+	});
+});
+
 module(Bar, {
 	Get("/bar", [](frankie::Context ctx) {
 		return "Hai";

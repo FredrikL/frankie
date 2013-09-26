@@ -11,23 +11,6 @@
 
 namespace frankie {
 	void run(int port) {
-/*
-		std::cout << frankie::regs().size() << std::endl;
-
-		for(auto &x : frankie::regs()){
-			std::cout << x.name << std::endl;
-		}
-
-		frankie::Registry r(frankie::regs());
-
-		auto foo = r.create("Foo");
-
-		if(foo->canHandle("GET","/")) {
-			std::cout << "can handle!" << std::endl;
-			foo->handle("GET", "/");
-		}
-
-*/
 		boost::asio::io_service service;
 		frankie::Server server(service, port);
 		service.run();
