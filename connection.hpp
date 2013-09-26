@@ -45,7 +45,9 @@ namespace frankie {
 				auto module = registry.createModuleForUrl("GET", "/");
 				auto result = module->handle("GET", "/");
 
-				msg = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Lenght: 100\r\n\r\nHai\r\n\r\n";
+				msg = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Lenght: 100\r\n\r\n" +
+						result.get() +
+						"\r\n\r\n";
 
 				boost::asio::async_write(_socket, boost::asio::buffer(msg),
 					boost::bind(&Connection::handle_write, shared_from_this(),

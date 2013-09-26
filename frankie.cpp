@@ -5,7 +5,7 @@
 module(Foo, {
 	Get("/", [](frankie::Context ctx) {
 		std::cout << "Ho" << std::endl;
-		frankie::Response r;
+		frankie::Response r("Ho");
 		return r;
 	});
 });
@@ -13,7 +13,7 @@ module(Foo, {
 module(Bar, {
 	Get("/bar", [](frankie::Context ctx) {
 		std::cout << "Hai" << std::endl;
-		frankie::Response r;
+		frankie::Response r("Hai");
 		return r;
 	});
 });
