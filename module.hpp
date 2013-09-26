@@ -25,7 +25,7 @@ namespace frankie {
 
 	class Module{
 		public:
-			bool canHandle(std::string protocol, std::string path) { 
+			bool canHandle(const std::string protocol, const std::string path) { 
 				for(auto &k : get) {
 					if(k.first == path)
 						return true;
@@ -33,8 +33,8 @@ namespace frankie {
 				return false;
 			};
 
-			frankie::Response handle(std::string protocol, std::string path) {
-				return get[path](frankie::Context(""));
+			frankie::Response handle(const Context ctx) {
+				return get[ctx.path()](ctx);
 			}
 
 		protected:

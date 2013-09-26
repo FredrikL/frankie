@@ -40,10 +40,10 @@ namespace frankie {
 				std::string input(boost::asio::buffers_begin(bufs), boost::asio::buffers_begin(bufs) + bytes);
 				buffer.consume(bytes);
 
-				// magic?!
 				std::cout << input << std::endl;
-				auto module = registry.createModuleForUrl("GET", "/");
-				auto result = module->handle("GET", "/");
+				Context ctx(input);
+				auto module = registry.createModuleForUrl(ctx);
+				auto result = module->handle(ctx);
 
 				msg = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Lenght: 100\r\n\r\n" +
 						result.get() +

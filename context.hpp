@@ -4,19 +4,21 @@ namespace frankie {
 
 	class Context {
 	public:
-		Context(const std::string request) : _request(request) {
+		Context(const std::string request) : _request(request), _protocol("GET"), _path("/") {
 
 		}
 
-		std::string protocol() {
-			return "";
+		const std::string protocol() const {
+			return _protocol;
 		}
 
-		std::string path() {
-			return "";
+		const std::string path() const {
+			return _path;
 		}
-		
+
 	private:
+		std::string _protocol;
+		std::string _path;
 		std::string _request;
 	};
 }

@@ -42,10 +42,10 @@ namespace frankie{
 			}
 		}
 
-		std::shared_ptr<frankie::Module> createModuleForUrl(std::string protocol, std::string url) {
+		std::shared_ptr<frankie::Module> createModuleForUrl(const Context ctx) {
 			for(auto &x : _creators) {
 				auto module = x.second();
-				if(module->canHandle(protocol, url))
+				if(module->canHandle(ctx.protocol(), ctx.path()))
 					return module;
 			}
 			return nullptr;
