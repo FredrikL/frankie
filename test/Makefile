@@ -3,7 +3,7 @@ CC=clang++ -std=c++11 -stdlib=libc++ -lboost_system-mt -Wfatal-errors -Wall -W -
 all: clean test
 
 test: 
-	$(CC) $(LFLAGS) test.cpp -o test
+	$(CC) $(LFLAGS) test.cpp context_test.cpp  -o test
 
 clean:
 	rm test
