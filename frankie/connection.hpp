@@ -43,9 +43,12 @@ namespace frankie {
 				std::cout << input << std::endl;
 				Context ctx(input);
 				auto module = registry.createModuleForUrl(ctx);
-				auto result = module->handle(ctx);
 
-				msg = "HTTP/1.1 200 OK\r\nContent-Type: " +
+				Response result = module == nullptr ? result = NotFoundResponse() : result = module->handle(ctx);
+
+				msg = "HTTP/1.1 " +
+						std::to_string(result.status()) +
+						" OK\r\nContent-Type: " +
 						result.contentType() +
 				 		"\r\nContent-Lenght: " + 
 				 		std::to_string(result.length()) +
