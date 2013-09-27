@@ -1,9 +1,9 @@
 CC=clang++ -std=c++11 -stdlib=libc++ -lboost_system-mt
 
-all: clean frankie
+all: clean frank
 
-frankie: 
-	$(CC) $(LFLAGS) frankie.cpp -o frankie
+frank: 
+	$(CC) $(LFLAGS) frankie.cpp -o frank
 
 clean:
-	rm frankie
+	rm frank

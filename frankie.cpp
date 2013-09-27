@@ -1,5 +1,5 @@
 #include <functional>
-#include "frankie.hpp"
+#include "frankie/frankie.hpp"
 
 module(Foo, {
 	Get("/", [](frankie::Context ctx) {
