@@ -45,9 +45,15 @@ namespace frankie {
 				auto module = registry.createModuleForUrl(ctx);
 				auto result = module->handle(ctx);
 
-				msg = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Lenght: 100\r\n\r\n" +
+				msg = "HTTP/1.1 200 OK\r\nContent-Type: " +
+						result.contentType() +
+				 		"\r\nContent-Lenght: " + 
+				 		std::to_string(result.length()) +
+				 		"\r\n\r\n" +
 						result.get() +
 						"\r\n\r\n";
+
+				std::cout << msg << std::endl;
 
 				boost::asio::async_write(_socket, boost::asio::buffer(msg),
 					boost::bind(&Connection::handle_write, shared_from_this(),
