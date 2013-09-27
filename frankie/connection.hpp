@@ -22,7 +22,6 @@ namespace frankie {
 		}
 
 		void handle_request() {
-			std::cout << "handle_request" << std::endl;
 			boost::asio::async_read_until(_socket, buffer,
 				"\r\n\r\n",
 				boost::bind(&Connection::handle_read, shared_from_this(), 
@@ -55,8 +54,6 @@ namespace frankie {
 				 		"\r\n\r\n" +
 						result.get() +
 						"\r\n\r\n";
-
-				std::cout << msg << std::endl;
 
 				boost::asio::async_write(_socket, boost::asio::buffer(msg),
 					boost::bind(&Connection::handle_write, shared_from_this(),
