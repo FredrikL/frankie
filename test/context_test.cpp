@@ -8,11 +8,14 @@ using namespace frankie;
 go_bandit([](){
     describe("context:", [](){
     	std::string request = "GET /index.html HTTP/1.1\r\nHost: www.example.com";
+    	Context ctx(request);
 
 		it("should parse protocl from request", [&](){
-			Context ctx(request);
-
 			AssertThat(ctx.protocol(), Equals("GET"));
+		});
+
+		it("should parse path from request", [&](){
+			AssertThat(ctx.path(), Equals("/index.html"));
 		});
     });
 
