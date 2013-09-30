@@ -20,6 +20,10 @@ namespace frankie {
 			return _path;
 		}
 
+		const std::string host() const {
+			return "";
+		}
+
 	private:
 		std::string _protocol;
 		std::string _path;

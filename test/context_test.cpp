@@ -17,6 +17,10 @@ go_bandit([](){
 		it("should parse path from request", [&](){
 			AssertThat(ctx.path(), Equals("/index.html"));
 		});
+
+		it("should parse host from request", [&](){
+			AssertThat(ctx.host(), Equals("www.example.com"));
+		});
     });
 
 });
