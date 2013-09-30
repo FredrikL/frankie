@@ -6,7 +6,7 @@ run:
 	./test
 
 test: 
-	$(CC) $(LFLAGS) test.cpp context_test.cpp  -o test
+	$(CC) $(LFLAGS) *.cpp -o test
 
 clean:
 	rm test
