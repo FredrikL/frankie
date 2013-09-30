@@ -13,7 +13,7 @@ namespace frankie {
 
 	class Module{
 		public:
-			bool canHandle(const std::string protocol, const std::string path) { 
+			bool canHandle(const std::string /*protocol*/, const std::string path) { 
 				for(auto &k : get) {
 					if(k.first == path)
 						return true;

@@ -43,17 +43,9 @@ namespace frankie {
 				Context ctx(input);
 				auto module = registry.createModuleForUrl(ctx);
 
-				Response result = module == nullptr ? result = NotFoundResponse() : result = module->handle(ctx);
+				auto result = module->handle(ctx);
 
-				msg = "HTTP/1.1 " +
-						std::to_string(result.status()) +
-						" OK\r\nContent-Type: " +
-						result.contentType() +
-				 		"\r\nContent-Lenght: " + 
-				 		std::to_string(result.length()) +
-				 		"\r\n\r\n" +
-						result.get() +
-						"\r\n\r\n";
+				msg = result.get();
 
 				boost::asio::async_write(_socket, boost::asio::buffer(msg),
 					boost::bind(&Connection::handle_write, shared_from_this(),
@@ -63,7 +55,6 @@ namespace frankie {
 		}
 
 		void handle_write(const boost::system::error_code&, size_t) {
-			//std::cout << "handle_write" << std::endl;
 		}
 
 		boost::asio::streambuf buffer;

@@ -2,7 +2,7 @@
 #include "frankie/frankie.hpp"
 
 module(Foo, {
-	Get("/", [](frankie::Context ctx) {
+	Get("/", [](frankie::Context) {
 		return "Ho";
 	});
 });
@@ -17,7 +17,7 @@ module(Baz, {
 });
 
 module(Bar, {
-	Get("/bar", [](frankie::Context ctx) {
+	Get("/bar", [](frankie::Context) {
 		return "Hai";
 	});
 });

@@ -4,27 +4,28 @@ namespace frankie {
 
 	class Response {
 	public:
-		Response(const std::string response) : _response(response), _status(200) { }
+		Response(const std::string response) : _status(200), _response(response) { }
 
-		Response(const std::string response, uint status) : _response(response), _status(status) { }
+		Response(const std::string response, uint status) : _status(status), _response(response) { }
 
-		Response(const char response[]) : _response(response) { }
+		Response(const char response[]) : _status(200), _response(response) { }
 
-		const uint status() {
+		uint status() {
 			return _status;
 		}
 
 		const std::string get() {
-			return _response;
+			return "HTTP/1.1 " +
+						std::to_string(_status) +
+						" OK\r\nContent-Type: " +
+						_contentType +
+				 		"\r\nContent-Lenght: " + 
+				 		std::to_string(_response.length()) +
+				 		"\r\n\r\n" +
+						_response +
+						"\r\n\r\n";
 		}
 
-		const uint length() {
-			return _response.length();
-		}
-
-		const std::string contentType() {
-			return "text/plain";
-		}
 	private:
 		uint _status;
 		std::string _response;
