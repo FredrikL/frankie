@@ -8,8 +8,9 @@ module(Foo, {
 });
 
 module(Baz, {
-	Get("/Baz", [](frankie::Context){
-		return "baz";
+	Get("/Baz", [](frankie::Context c){
+		auto p = c.parameters();
+		return "baz" + p["foo"];
 	});
 	Get("/Fuu", [](frankie::Context){
 		return "fuu";
