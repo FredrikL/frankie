@@ -22,7 +22,10 @@ namespace frankie {
 			};
 
 			frankie::Response handle(const Context ctx) {
-				return get[ctx.path()](ctx);
+				if(get.find(ctx.path()) != get.end()){
+					return get[ctx.path()](ctx);
+				}
+ 				return frankie::NotFoundResponse();
 			}
 
 		protected:

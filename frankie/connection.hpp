@@ -43,10 +43,13 @@ namespace frankie {
 				Context ctx(input);
 				auto module = registry.createModuleForUrl(ctx);
 
-				auto result = module->handle(ctx);
-
-				msg = result.get();
-
+				if(module != nullptr){
+					auto result = module->handle(ctx);
+					msg = result.get();
+				} else {
+					frankie::NotFoundResponse r;
+					msg= r.get();
+				}
 				boost::asio::async_write(_socket, boost::asio::buffer(msg),
 					boost::bind(&Connection::handle_write, shared_from_this(),
 					boost::asio::placeholders::error, 
