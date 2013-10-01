@@ -12,7 +12,6 @@ go_bandit([](){
 			AssertThat(resp.status(), Equals(200u));
 		});
 
-
 		it("NotFoundResponse should have status 404", [](){
 			NotFoundResponse resp;
 			AssertThat(resp.status(), Equals(404u));
