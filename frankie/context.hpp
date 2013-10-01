@@ -54,6 +54,15 @@ namespace frankie {
 				_path = path;
 			} else {
 				_path = path.substr(0, parampos);
+				auto params = path.substr(parampos+1, path.length() - parampos);
+				std::vector<std::string> parts;
+				boost::split(parts, params, boost::is_any_of("&"));
+				for(auto &x : parts) {
+					auto eqpos = x.find_first_of("=");
+					auto key = x.substr(0, eqpos);
+					auto val = x.substr(eqpos+1, x.length());
+					_parameters[key] = val;
+				}
 			}
 		}
 

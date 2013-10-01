@@ -22,11 +22,23 @@ go_bandit([](){
 		});
 
 		describe("parameters", [](){
-			std::string request = "GET /foo?bar=baz HTTP/1.1\r\nHost: www.example.com";
+			std::string request = "GET /foo?bar=baz&foo=fu HTTP/1.1\r\nHost: www.example.com";
 			Context c(request);
 
 			it("should resolve the correct path", [&](){
 				AssertThat(c.path(), Equals("/foo"));
+			});
+
+			it("should parse parameters into map", [&]() {
+				auto p = c.parameters();
+
+				AssertThat(p["bar"], Equals("baz"));
+			});
+
+			 it("should parse second parameter into map", [&]() {
+				auto p = c.parameters();
+
+				AssertThat(p["foo"], Equals("fu"));
 			});
 		});
     });
