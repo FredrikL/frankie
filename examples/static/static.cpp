@@ -1,9 +1,11 @@
 #include <functional>
 #include "../../frankie/frankie.hpp"
 
+using namespace frankie;
+
 module(Static, {
-	Get("/", [](frankie::Context) {
-		return "Ho";
+	Get("/", [](Context) {
+		return StaticResponse("index.html");
 	});
 });
 

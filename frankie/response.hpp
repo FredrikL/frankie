@@ -1,5 +1,7 @@
 #pragma once
 
+#include <fstream>
+
 namespace frankie {
 
 	class Response {
@@ -36,12 +38,15 @@ namespace frankie {
 	public:
 		StaticResponse(const std::string path) : Response("", 200), _path(path) {
 
-		}
-
-		const std::string get() {
-			// load file into _response
-			// set correct _contentType + status
-			return Response::get();
+			std::ifstream fs(_path);
+			if(fs.is_open()){
+				std::string line;
+				while(getline(fs, line)) {
+					_response += line;
+				}
+				fs.close();
+			}
+			_contentType = "text/html";
 		}
 
 	private:

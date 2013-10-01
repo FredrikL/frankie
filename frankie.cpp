@@ -12,8 +12,8 @@ module(Baz, {
 		auto p = c.parameters();
 		return "baz" + p["foo"];
 	});
-	Get("/Fuu", [](frankie::Context){
-		return "fuu";
+	Get("/Foo", [](frankie::Context){
+		return "foo";
 	});
 });
 
