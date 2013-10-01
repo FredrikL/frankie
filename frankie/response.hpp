@@ -26,10 +26,26 @@ namespace frankie {
 						"\r\n\r\n";
 		}
 
-	private:
+	protected:
 		uint _status;
 		std::string _response;
 		std::string _contentType;
+	};
+
+	class StaticResponse : public Response{
+	public:
+		StaticResponse(const std::string path) : Response("", 200), _path(path) {
+
+		}
+
+		const std::string get() {
+			// load file into _response
+			// set correct _contentType + status
+			return Response::get();
+		}
+
+	private:
+		std::string _path;
 	};
 
 	class NotFoundResponse : public Response {
