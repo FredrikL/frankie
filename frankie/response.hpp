@@ -57,4 +57,9 @@ namespace frankie {
 	public:
 		NotFoundResponse() : Response("not found", 404) { }
 	};
+
+	class ErrorResponse : public Response {
+	public:
+		ErrorResponse() : Response("error", 500) { }
+	};
 }

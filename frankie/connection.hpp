@@ -34,7 +34,6 @@ namespace frankie {
 
 		void handle_read(const boost::system::error_code& error, std::size_t bytes) {
 			if(!error) {
-
 				auto bufs = buffer.data();
 				std::string input(boost::asio::buffers_begin(bufs), boost::asio::buffers_begin(bufs) + bytes);
 				buffer.consume(bytes);
@@ -47,14 +46,17 @@ namespace frankie {
 					auto result = module->handle(ctx);
 					msg = result.get();
 				} else {
-					frankie::NotFoundResponse r;
-					msg= r.get();
+					msg= frankie::NotFoundResponse().get();
 				}
-				boost::asio::async_write(_socket, boost::asio::buffer(msg),
+				
+			} else {
+				msg = frankie::ErrorResponse().get();
+			}
+
+			boost::asio::async_write(_socket, boost::asio::buffer(msg),
 					boost::bind(&Connection::handle_write, shared_from_this(),
 					boost::asio::placeholders::error, 
 					boost::asio::placeholders::bytes_transferred));
-			}
 		}
 
 		void handle_write(const boost::system::error_code&, size_t) {
