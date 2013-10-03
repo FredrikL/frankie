@@ -29,6 +29,10 @@ namespace frankie {
 			return _parameters;
 		}
 
+		const std::vector<std::string> & accept_headers() const {
+			return _accept_headers;
+		}
+
 	private:
 		void parseRequest() {
 			std::vector<std::string> parts;
@@ -44,6 +48,8 @@ namespace frankie {
 				if(boost::starts_with(x, "Host:")) {
 					auto pos = x.find_first_of(" ");
 					_host = x.substr(pos + 1, x.length() - pos);
+				} else if(boost::starts_with(x, "Accept: ")) {
+					parseAcceptHeaders(x);
 				}
 			}
 		}
@@ -66,10 +72,16 @@ namespace frankie {
 			}
 		}
 
+		void parseAcceptHeaders(const std::string & accept) {
+			std::string list = accept.substr(8, accept.length() -8);
+			boost::split(_accept_headers, list, boost::is_any_of(","));
+		}
+
 		std::string _protocol;
 		std::string _path;
 		std::string _request;
 		std::string _host;
 		std::map<std::string, std::string> _parameters;
+		std::vector<std::string> _accept_headers;
 	};
 }

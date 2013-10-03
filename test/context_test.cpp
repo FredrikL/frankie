@@ -41,6 +41,24 @@ go_bandit([](){
 				AssertThat(p["foo"], Equals("fu"));
 			});
 		});
+
+		describe("accept headers", [](){
+			std::string request = "GET / HTTP/1.1\r\nHost: www.example.com\r\nAccept: application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
+			Context c(request);
+			auto headers = c.accept_headers();
+
+			it("should parse all accept headers", [&](){
+				AssertThat(headers.size(), Equals(6ul));
+			});
+
+			it("should be sorted by priority", [&](){
+				AssertThat(headers[0], Equals("application/xml"));
+			});
+
+			it("should have lowest q last", [&](){
+				AssertThat(headers[5],Equals("*/*;q=0.5"));
+			});
+		});
     });
 
 });
