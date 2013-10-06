@@ -9,7 +9,6 @@ module(Static, {
 	});
 });
 
-
 int main() {
 	frankie::run(9090);
 
