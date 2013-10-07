@@ -8,13 +8,16 @@
 
 namespace frankie {
 
-	typedef std::function<frankie::Response(frankie::Context)> ffunc;
+	typedef std::function<frankie::Response(frankie::Context)> func;
 	
 
 	class Module{
 		public:
-			bool canHandle(const std::string /*protocol*/, const std::string path) { 
-				for(auto &k : get) {
+			bool canHandle(const std::string protocol, const std::string path) { 
+				std::cout << protocol << std::endl;
+				auto dict = getForProtocol(protocol);
+					
+				for(auto &k : dict) {
 					if(k.first == path)
 						return true;
 				}
@@ -22,18 +25,33 @@ namespace frankie {
 			};
 
 			frankie::Response handle(const Context ctx) {
-				if(get.find(ctx.path()) != get.end()){
-					return get[ctx.path()](ctx);
+				auto dict = getForProtocol(ctx.protocol());
+
+				if(dict.find(ctx.path()) != dict.end()){
+					return dict[ctx.path()](ctx);
 				}
  				return frankie::NotFoundResponse();
 			}
 
 		protected:
-			void Get(std::string path, ffunc f) {
+			void Get(std::string path, func f) {
 				get[path] = f;
 			}
 
+			void Post(std::string path, func f) {
+				post[path] = f;
+			}
+
 		private:
-			std::map<std::string, ffunc> get;
+
+			const std::map<std::string, func> & getForProtocol(const std::string protocol) const {
+				if(protocol == "POST")
+					return post;
+
+				return get;
+			}
+
+			std::map<std::string, func> get;
+			std::map<std::string, func> post;
 	};
 };

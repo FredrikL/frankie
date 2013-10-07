@@ -12,7 +12,7 @@ module(Baz, {
 		auto p = c.parameters();
 		return "baz" + p["foo"];
 	});
-	Get("/Foo", [](frankie::Context){
+	Post("/Foo", [](frankie::Context){
 		return "foo";
 	});
 });
