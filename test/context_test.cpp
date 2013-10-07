@@ -59,6 +59,15 @@ go_bandit([](){
 				AssertThat(headers[5],Equals("*/*;q=0.5"));
 			});
 		});
+
+		describe("content-type", [](){
+			std::string request = "POST / HTTP/1.1Host: www.example.com\r\nAccept: application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5\r\nContent-Type: application/json";
+			Context c(request);
+
+			it("should parse content-type if present",[&](){
+				AssertThat(c.content_type(), Equals("application/json"));
+			});
+		});
     });
 
 });

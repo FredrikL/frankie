@@ -33,6 +33,10 @@ namespace frankie {
 			return _accept_headers;
 		}
 
+		const std::string content_type() const {
+			return _contenttype;
+		}
+
 	private:
 		void parseRequest() {
 			std::vector<std::string> parts;
@@ -50,6 +54,9 @@ namespace frankie {
 					_host = x.substr(pos + 1, x.length() - pos);
 				} else if(boost::starts_with(x, "Accept: ")) {
 					parseAcceptHeaders(x);
+				} else if(boost::starts_with(x, "Content-Type: ")) {
+					auto pos = x.find_first_of(" ");
+					_contenttype = x.substr(pos +1 , x.length() -pos);
 				}
 			}
 		}
@@ -81,7 +88,9 @@ namespace frankie {
 		std::string _path;
 		std::string _request;
 		std::string _host;
+		std::string _contenttype;
 		std::map<std::string, std::string> _parameters;
 		std::vector<std::string> _accept_headers;
+
 	};
 }

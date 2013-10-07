@@ -14,7 +14,6 @@ namespace frankie {
 	class Module{
 		public:
 			bool canHandle(const std::string protocol, const std::string path) { 
-				std::cout << protocol << std::endl;
 				auto dict = getForProtocol(protocol);
 					
 				for(auto &k : dict) {
