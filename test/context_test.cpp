@@ -21,6 +21,10 @@ go_bandit([](){
 			AssertThat(ctx.host(), Equals("www.example.com"));
 		});
 
+		it("should have a blank content-type if not set in request", [&](){
+			AssertThat(ctx.content_type(), Equals(""));
+		});
+
 		describe("parameters", [](){
 			std::string request = "GET /foo?bar=baz&foo=fu HTTP/1.1\r\nHost: www.example.com";
 			Context c(request);
