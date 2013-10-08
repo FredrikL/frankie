@@ -72,6 +72,15 @@ go_bandit([](){
 				AssertThat(c.content_type(), Equals("application/json"));
 			});
 		});
+
+		describe("data", [](){
+			std::string request = "GET /index.html HTTP/1.1\r\nHost: www.example.com\r\n\r\nfoo=bar";
+			Context ctx(request);
+
+			it("should be possible to get data from request", [&](){
+				AssertThat(ctx.request_data(), Equals("foo=bar"));
+			});
+		});
     });
 
 });

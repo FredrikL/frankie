@@ -37,6 +37,10 @@ namespace frankie {
 			return _contenttype;
 		}
 
+		const std::string request_data() const {
+			return _data;
+		}
+
 	private:
 		void parseRequest() {
 			std::vector<std::string> parts;
@@ -58,6 +62,12 @@ namespace frankie {
 					auto pos = x.find_first_of(" ");
 					_contenttype = x.substr(pos +1 , x.length() -pos);
 				}
+			}
+
+			auto datapos = _request.find("\r\n\r\n");
+			if(datapos != std::string::npos) {
+				std::cout << "hai!!!" <<  datapos << std::endl;
+				_data = _request.substr(datapos+4, _request.length() - (datapos+4));
 			}
 		}
 
@@ -89,6 +99,7 @@ namespace frankie {
 		std::string _request;
 		std::string _host;
 		std::string _contenttype;
+		std::string _data;
 		std::map<std::string, std::string> _parameters;
 		std::vector<std::string> _accept_headers;
 
