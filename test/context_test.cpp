@@ -74,11 +74,15 @@ go_bandit([](){
 		});
 
 		describe("data", [](){
-			std::string request = "GET /index.html HTTP/1.1\r\nHost: www.example.com\r\n\r\nfoo=bar";
+			std::string request = "GET /index.html HTTP/1.1\r\nHost: www.example.com\r\nContent-Length: 7\r\n\r\nfoo=bar";
 			Context ctx(request);
 
 			it("should be possible to get data from request", [&](){
 				AssertThat(ctx.request_data(), Equals("foo=bar"));
+			});
+
+			it("should be complete if data lenght matches content-lenght", [&](){
+				AssertThat(ctx.complete(), Equals(true));
 			});
 		});
     });

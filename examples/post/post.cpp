@@ -1,5 +1,6 @@
 #include <functional>
 #include <entity/entity.h>
+#include <entity/json.h>
 #include "../../frankie/frankie.hpp"
 
 using namespace frankie;
@@ -16,7 +17,9 @@ struct msg : entity {
 module(P, {
 	Post("/", [](Context c) {
 		std::cout << c.request_data() << std::endl;
-		auto e = Deserialize<msg>(c);
+		//auto e = Deserialize<msg>(c);
+		msg e;
+		e.from<json>(c.request_data());
 		std::cout << e.x << std::endl;
 		return e.x;
 	});

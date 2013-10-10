@@ -22,6 +22,8 @@ namespace frankie {
 		}
 
 		void handle_request() {
+			// inspect content-length too ?
+
 			boost::asio::async_read_until(_socket, buffer,
 				"\r\n\r\n",
 				boost::bind(&Connection::handle_read, shared_from_this(), 
@@ -32,14 +34,23 @@ namespace frankie {
 	private:
 		Connection(boost::asio::io_service& service) : _socket(service) { }
 
-		void handle_read(const boost::system::error_code& error, std::size_t bytes) {
+		void handle_read(const boost::system::error_code& error, std::size_t /*bytes*/) {
 			if(!error) {
 				auto bufs = buffer.data();
-				std::string input(boost::asio::buffers_begin(bufs), boost::asio::buffers_begin(bufs) + bytes);
-				buffer.consume(bytes);
-
+				std::string input(boost::asio::buffers_begin(bufs), boost::asio::buffers_begin(bufs) + buffer.size());
 				std::cout << input << std::endl;
+
 				Context ctx(input);
+
+				if(!ctx.complete()) {
+					boost::asio::async_read_until(_socket, buffer,
+						"\n",
+						boost::bind(&Connection::handle_read, shared_from_this(), 
+							boost::asio::placeholders::error, 
+							boost::asio::placeholders::bytes_transferred));
+					return;
+				}
+
 				auto module = registry.createModuleForUrl(ctx);
 
 				if(module != nullptr){

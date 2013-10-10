@@ -10,6 +10,7 @@ namespace frankie {
 	class Context {
 	public:
 		Context(const std::string request) : _request(request) { 
+			_datasize=0;
 			parseRequest();
 		}
 
@@ -41,6 +42,11 @@ namespace frankie {
 			return _data;
 		}
 
+		bool complete() const {
+			std::cout << _datasize << "-" << _data.size() << std::endl;
+			return _datasize == _data.size();
+		}
+
 	private:
 		void parseRequest() {
 			std::vector<std::string> parts;
@@ -61,12 +67,15 @@ namespace frankie {
 				} else if(boost::starts_with(x, "Content-Type: ")) {
 					auto pos = x.find_first_of(" ");
 					_contenttype = x.substr(pos +1 , x.length() -pos);
+				} else if(boost::starts_with(x, "Content-Length: ")) {
+					auto pos = x.find_first_of(" ");
+					auto size = x.substr(pos +1 , x.length() -pos);
+					_datasize = atoi(size.c_str());
 				}
 			}
 
 			auto datapos = _request.find("\r\n\r\n");
 			if(datapos != std::string::npos) {
-				std::cout << "hai!!!" <<  datapos << std::endl;
 				_data = _request.substr(datapos+4, _request.length() - (datapos+4));
 			}
 		}
@@ -94,6 +103,7 @@ namespace frankie {
 			boost::split(_accept_headers, list, boost::is_any_of(","));
 		}
 
+		unsigned long _datasize;
 		std::string _protocol;
 		std::string _path;
 		std::string _request;
