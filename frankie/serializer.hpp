@@ -12,4 +12,9 @@ namespace frankie {
 		result.template from<json>(c.request_data());
 		return result;
 	}
+
+	template <class T>
+	std::string Serialize(T e) {
+		return (e.template to<json>());
+	}
 };

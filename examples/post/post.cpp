@@ -15,9 +15,11 @@ struct msg : entity {
 };
 
 module(P, {
+	// expected input {"x":"hai"}
 	Post("/", [](Context c) {
 		auto e = Deserialize<msg>(c);
-		return e.x;
+		e.x = "Sup?";
+		return Serialize<msg>(e);
 	});
 });
 

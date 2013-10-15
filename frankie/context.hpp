@@ -43,7 +43,6 @@ namespace frankie {
 		}
 
 		bool complete() const {
-			std::cout << _datasize << "-" << _data.size() << std::endl;
 			return _datasize == _data.size();
 		}
 
