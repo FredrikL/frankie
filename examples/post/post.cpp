@@ -16,11 +16,7 @@ struct msg : entity {
 
 module(P, {
 	Post("/", [](Context c) {
-		std::cout << c.request_data() << std::endl;
-		//auto e = Deserialize<msg>(c);
-		msg e;
-		e.from<json>(c.request_data());
-		std::cout << e.x << std::endl;
+		auto e = Deserialize<msg>(c);
 		return e.x;
 	});
 });
