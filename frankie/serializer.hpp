@@ -2,6 +2,7 @@
 
 #include <entity/entity.h>
 #include <entity/json.h>
+#include <entity/xml.h>
 
 using namespace ent;
 
