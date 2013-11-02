@@ -14,6 +14,19 @@ namespace frankie {
 			parseRequest();
 		}
 
+	/*	Context(const Context &c) : 
+			_datasize(c._datasize),
+			_protocol(c._protocol),
+			_path(c._path),
+			_request(c._request),
+			_host(c._host),
+			_contenttype(c._contenttype),
+			_data(c._data),
+						_parameters(c._parameters), 
+			_accept_headers(c._accept_headers)
+ {
+		}*/
+
 		const std::string protocol() const {
 			return _protocol;
 		}
@@ -36,6 +49,22 @@ namespace frankie {
 
 		const std::string content_type() const {
 			return _contenttype;
+		}
+
+	 	bool isJson() const {
+			return _contenttype == "application/json";
+		}
+
+		bool isXml() const{
+			return _contenttype == "application/xml";
+		}
+
+		bool wantXml() const {
+			if(_accept_headers.size() > 0) {
+				std::string xml("application/xml");
+				return	_accept_headers[0].compare(0, xml.length(), xml) == 0;
+			}
+			return false;
 		}
 
 		const std::string request_data() const {
