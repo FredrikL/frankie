@@ -14,19 +14,6 @@ namespace frankie {
 			parseRequest();
 		}
 
-	/*	Context(const Context &c) : 
-			_datasize(c._datasize),
-			_protocol(c._protocol),
-			_path(c._path),
-			_request(c._request),
-			_host(c._host),
-			_contenttype(c._contenttype),
-			_data(c._data),
-						_parameters(c._parameters), 
-			_accept_headers(c._accept_headers)
- {
-		}*/
-
 		const std::string protocol() const {
 			return _protocol;
 		}
