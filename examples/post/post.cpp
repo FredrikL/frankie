@@ -2,13 +2,14 @@
 #include "../../frankie/frankie.hpp"
 
 using namespace frankie;
-using namespace ent;
 
-struct msg : entity {
+struct msg {
 	std::string x;
 
-	mapping map() {
-		return mapping() << eref(x);
+	template<class Archive>
+	void serialize(Archive & archive)
+	{
+		archive(x);
 	}
 };
 

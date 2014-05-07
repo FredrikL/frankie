@@ -1,33 +1,53 @@
 #pragma once
 
-#include <entity/entity.h>
-#include <entity/json.h>
-#include <entity/xml.h>
-
-using namespace ent;
+#include <sstream>
+#include <cereal/archives/json.hpp>
+#include <cereal/archives/xml.hpp>
 
 namespace frankie {
 	template <class T>
 	T Deserialize(frankie::Context c) {
 		T result;
+		std::istringstream iss (c.request_data());
 
-		if(c.isJson()) 
-			result.template from<json>(c.request_data());
-		else if(c.isXml())
-			result.template from<xml>(c.request_data());
+		if(c.isJson()) { 
+			cereal::JSONInputArchive json(iss);
+			json(result);
+			//result.template from<json>(c.request_data());
+		} else if(c.isXml()) {
+			//result.template from<xml>(c.request_data());
+			cereal::XMLInputArchive xml(iss);
+			xml(result);
+		}
 		return result;
 	}
 
 	template <class T>
 	std::string Serialize(T e, frankie::Context c) {
-		if(c.wantXml())
-			return (e.template to<xml>());
+		std::ostringstream oss;
 
-		return (e.template to<json>());
+		if(c.wantXml()) {
+			cereal::XMLOutputArchive xml(oss);
+
+			xml(e);
+		} else {
+			cereal::JSONOutputArchive json(oss);
+
+			json(e);
+		}
+
+		return oss.str();
 	}
 
 	template <class T>
 	std::string Serialize(T e) {
-		return (e.template to<json>());
+		std::ostringstream oss;
+		cereal::JSONOutputArchive json(oss);
+
+		json(e);
+
+		return oss.str();
+
+//		return (e.template to<json>());
 	}
 };
