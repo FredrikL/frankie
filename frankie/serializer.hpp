@@ -33,7 +33,7 @@ namespace frankie {
 		} else {
 			cereal::JSONOutputArchive json(oss);
 
-			json(e);
+			json(CEREAL_NVP(e));
 		}
 
 		return oss.str();
@@ -44,7 +44,7 @@ namespace frankie {
 		std::ostringstream oss;
 		cereal::JSONOutputArchive json(oss);
 
-		json(e);
+		json(CEREAL_NVP(e));
 
 		return oss.str();
 

@@ -9,7 +9,7 @@ struct msg {
 	template<class Archive>
 	void serialize(Archive & archive)
 	{
-		archive(x);
+		archive(CEREAL_NVP(x));
 	}
 };
 
