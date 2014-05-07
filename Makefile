@@ -1,4 +1,4 @@
-CC=clang++ -std=c++11 -stdlib=libc++ -lboost_system-mt -Wfatal-errors -Wall -W -Werror -Wfloat-equal -Wundef -Wendif-labels 
+CC=clang++ -std=c++11 -stdlib=libc++ -lboost_system-mt -Wfatal-errors -Wall -W -Werror -Wfloat-equal -Wendif-labels -Iexternal/ 
 
 all: clean frank
 

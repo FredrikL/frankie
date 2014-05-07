@@ -29,7 +29,7 @@ namespace frankie {
 		if(c.wantXml()) {
 			cereal::XMLOutputArchive xml(oss);
 
-			xml(e);
+			xml(CEREAL_NVP(e));
 		} else {
 			cereal::JSONOutputArchive json(oss);
 
