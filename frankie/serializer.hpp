@@ -13,9 +13,7 @@ namespace frankie {
 		if(c.isJson()) { 
 			cereal::JSONInputArchive json(iss);
 			json(result);
-			//result.template from<json>(c.request_data());
 		} else if(c.isXml()) {
-			//result.template from<xml>(c.request_data());
 			cereal::XMLInputArchive xml(iss);
 			xml(result);
 		}
@@ -47,7 +45,5 @@ namespace frankie {
 		json(CEREAL_NVP(e));
 
 		return oss.str();
-
-//		return (e.template to<json>());
 	}
 };
